@@ -1,0 +1,6 @@
+Gloves
+Vest
+goggles
+helmet
+mask
+safety_shoe
