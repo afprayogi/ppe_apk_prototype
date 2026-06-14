@@ -1,4 +1,4 @@
-# VivatPass — PPE Safety Detection App
+#PPE Safety Detection App
 
 Aplikasi Flutter untuk deteksi Alat Pelindung Diri (APD) secara real-time menggunakan kamera dan model YOLO, dilengkapi manajemen karyawan, absensi, serta ekspor laporan PDF.
 
