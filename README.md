@@ -159,7 +159,7 @@ Raw results: [`docs/eval`](docs/eval). The Flutter app itself still uses the sim
 
 ## Research paper
 
-An IEEE-format manuscript draft (compliance model, architecture, verification) lives in [`docs/paper`](docs/paper): [English PDF](docs/paper/GearGuard-paper-en.pdf) · [PDF Bahasa Indonesia](docs/paper/GearGuard-paper-id.pdf) · [LaTeX source](docs/paper/main.tex). It is a draft: the detector benchmark and usability study still have to be run before it can be submitted anywhere. See [`docs/paper/README.md`](docs/paper/README.md).
+A 4-page IEEE-style paper (compliance model, architecture, detector experiments, software verification): [English PDF](docs/paper/GearGuard-paper-en.pdf) · [PDF Bahasa Indonesia](docs/paper/GearGuard-paper-id.pdf) · [LaTeX source](docs/paper/main.tex). Every number in it is produced by a script in [`tool/eval`](tool/eval). It makes **no accuracy claim and no usability claim**: the labelled-benchmark and user study are still to do (see [`docs/paper/README.md`](docs/paper/README.md)).
 
 ## Background
 
