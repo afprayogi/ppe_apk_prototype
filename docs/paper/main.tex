@@ -23,10 +23,10 @@
 \title{GearGuard: A Detector-Agnostic Mobile Architecture for\\
 Personal Protective Equipment Compliance Monitoring}
 
-\author{\IEEEauthorblockN{Author Name}
-\IEEEauthorblockA{Department, Institution\\
-City, Country\\
-email@example.com}}
+\author{\IEEEauthorblockN{Ahmad Fauzan Prayogi}
+\IEEEauthorblockA{\todo{Institution / department}\\
+\todo{City, Country}\\
+\todo{email}}}
 
 \maketitle
 
@@ -57,8 +57,9 @@ Construction, manufacturing and logistics sites require workers to wear
 helmets, high-visibility vests, gloves and safety footwear. Compliance is
 usually checked by a supervisor at the gate, which is slow, inconsistent and
 leaves no structured record. Vision-based PPE detection has been studied
-extensively~\cite{nath2020}, building on real-time detectors such as
-YOLO~\cite{redmon2016}. However, a detector alone does not make a usable safety
+extensively~\cite{wang2021chv,karlsson2022,ordrick2025}, building on real-time
+single-stage detectors such as the YOLO
+family~\cite{wang2023yolov7,jocher2023yolov8}. However, a detector alone does not make a usable safety
 tool: supervisors also need to know \emph{who} was scanned, \emph{which} rules
 applied, and to retrieve the history for audits.
 
@@ -69,14 +70,28 @@ This paper makes three contributions:
         component behind one interface (Section~IV).
   \item An open-source implementation and its verification (Sections~V--VI).
 \end{enumerate}
-\todo{Add 3--5 sentences positioning the work against recent PPE-detection and
-safety-management-app literature; verify every citation.}
+Prior work reports detection accuracy on site imagery
+\cite{wang2021chv,karlsson2022,ordrick2025}; the surrounding workflow (worker
+identity, site rules, records, audit reports) is rarely studied.
 
 \section{Related Work}
-\todo{Survey (a) PPE detection with deep learning on construction and industrial
-sites, (b) mobile or edge deployment of detectors, (c) digital safety
-management and attendance systems. Cite peer-reviewed sources only and state the
-gap: end-to-end workflow with a swappable detector.}
+\textbf{PPE detection.} Wang et al.~\cite{wang2021chv} released the CHV dataset
+(1{,}330 construction-site images) and compared eight YOLO-based detectors.
+Karlsson et al.~\cite{karlsson2022} built a YOLOv4 system for five equipment
+categories at entry-control points, the scenario closest to ours.
+Ordrick et al.~\cite{ordrick2025} trained YOLOv11s on 589 images (1{,}425
+instances, seven categories) and reported 94.0\% precision, 90.1\% recall and
+92.8\% mAP@50, noting a small validation set and difficulty detecting safety
+footwear.
+
+\textbf{Detector families.} Single-stage detectors such as
+YOLOv7~\cite{wang2023yolov7} and YOLOv8~\cite{jocher2023yolov8} are the usual
+choice for on-device inference.
+
+\textbf{Gap.} These works evaluate the model; they do not specify the
+application layer that turns detections into decisions and records. GearGuard
+formalises that layer (Section~III) and isolates the model behind one interface
+(Section~IV-B).
 
 \section{Problem Formulation}
 Let $\mathcal{P}$ be the set of supported PPE item types (helmet, vest, gloves,
@@ -185,7 +200,8 @@ on-device latency (ms/frame) and memory on named phones.}
 \subsection{Usability Study}
 \todo{Recruit $n$ supervisors or representative users; use task-completion time
 and success rate for the core tasks (scan, find a violation, export a report),
-plus the System Usability Scale~\cite{brooke1996}. Report mean, SD and the
+plus the System Usability Scale, interpreted against the benchmark mean of 68
+(SD 12.5)~\cite{hyzy2022sus}. Report mean, SD and the
 protocol; obtain ethics approval or an exemption statement.}
 \subsection{Ablation of the Workflow}
 \todo{Compare time-to-record with a paper checklist baseline.}
@@ -204,8 +220,11 @@ implementation of the PPE compliance workflow. Future work is a real on-device
 detector behind the same interface, a field usability study, and
 department-level reporting.
 
-\section*{Acknowledgment}
-\todo{Funding, supervisors, data providers.}
+\section*{Author Statement}
+Single-author work by Ahmad Fauzan Prayogi (conception, software, analysis,
+writing). Generative AI tools were used to assist in drafting the software and
+the manuscript; the author reviewed all content and is responsible for it.
+\todo{Confirm against the venue's AI policy; add funding and acknowledgements.}
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
