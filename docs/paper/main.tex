@@ -43,8 +43,10 @@ detector-agnostic architecture in which a single interface isolates the machine
 learning model from the user interface, storage and reporting layers, and
 (iii) an open-source reference implementation in Flutter with scan, attendance,
 ranking, archive and PDF-report features. The implementation is covered by unit
-and end-to-end widget tests. \todo{Add one sentence with the headline result of
-the detector benchmark and the usability study once they are run.}
+and end-to-end widget tests. A preliminary smoke test of the author's YOLO model
+detected the expected equipment class in 11 of 11 validation photos (about
+80\,ms per frame on a desktop CPU); a full benchmark and a usability study
+remain future work.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -191,12 +193,47 @@ workflow without a camera or trained model; consequently \emph{no detection
 accuracy is claimed in this paper}.
 
 \section{Evaluation}
-\todo{Replace this section with real experiments before submission. Minimum
-recommended content:}
-\subsection{Detector Benchmark}
-\todo{Train/evaluate a real PPE detector (state dataset, split, hyper-parameters,
-hardware). Report precision, recall, mAP@0.5 and mAP@0.5:0.95 per class, and
-on-device latency (ms/frame) and memory on named phones.}
+\subsection{Preliminary Detector Smoke Test}
+We ran the author's TFLite model (6.2\,MB; input $1{\times}640{\times}640{\times}3$,
+output $1{\times}10{\times}8400$) on the 11 validation photographs of the
+prototype repository: five helmet, three vest and three safety-shoe images, one
+object each. Labels are \emph{weak}---the expected class is taken from the file
+name and there are no ground-truth boxes, so mAP cannot be computed. With the
+app's settings (confidence 0.25, class-wise NMS IoU 0.45) the expected class was
+detected in \textbf{11/11} images with both the app's direct $640{\times}640$
+resize and standard letterbox preprocessing (Table~\ref{tab:smoke}). Safety-shoe
+confidence was markedly lower under direct resize (0.52--0.82) than under
+letterbox (0.74--0.92), so letterbox is recommended. Mean latency was 79.7\,ms per
+frame (median 79.5, p95 82.1; 30 timed runs after 3 warm-ups; LiteRT, 4 threads)
+on a desktop AMD Ryzen CPU (Family 25, Model 80) under Windows.
+
+\begin{table}[t]
+\caption{Expected-class detection on the 11 validation photos.}
+\label{tab:smoke}
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Class & $n$ & Hit & Conf. (resize) & Conf. (letterbox)\\
+\midrule
+helmet      & 5  & 5/5   & 0.89 & 0.89\\
+Vest        & 3  & 3/3   & 0.79 & 0.86\\
+safety\_shoe & 3 & 3/3   & 0.64 & 0.82\\
+\midrule
+All         & 11 & 11/11 & 0.80 & 0.87\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\emph{Limits.} Eleven positive-only, single-object images: false-positive
+behaviour is unmeasured; goggles, gloves and mask were not exercised; the photos
+come from the prototype's own repository and may overlap its training data
+(unknown); desktop-CPU latency is not phone latency. This is a functional check,
+not an accuracy estimate. Script and raw results: \texttt{tool/eval},
+\texttt{docs/eval}.
+
+\subsection{Full Detector Benchmark}
+\todo{Independent labelled test set with negatives; precision, recall, mAP@0.5
+and mAP@0.5:0.95 per class; latency and memory on named phones.}
 \subsection{Usability Study}
 \todo{Recruit $n$ supervisors or representative users; use task-completion time
 and success rate for the core tasks (scan, find a violation, export a report),

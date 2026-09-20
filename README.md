@@ -126,6 +126,19 @@ flutter test tool/screenshots_test.dart --update-goldens
 
 Unit tests cover the domain model (compliance maths, JSON round-trip), deterministic demo data and the detector. Widget tests drive the app end to end: onboarding, running a scan and saving a violation, adding an employee, and filtering the archive.
 
+## Detector smoke test
+
+The author's earlier YOLOv8/TFLite model ([release `model`](https://github.com/afprayogi/ppe_apk_prototype/releases/tag/model), 6.2 MB) was run on the 11 validation photos of the prototype with `tool/eval/eval_yolo_tflite.py`:
+
+| Class | n | Detected | Mean conf. (app resize) | Mean conf. (letterbox) |
+| --- | --- | --- | --- | --- |
+| helmet | 5 | 5/5 | 0.89 | 0.89 |
+| Vest | 3 | 3/3 | 0.79 | 0.86 |
+| safety_shoe | 3 | 3/3 | 0.64 | 0.82 |
+| **All** | 11 | **11/11** | 0.80 | 0.87 |
+
+Mean latency 79.7 ms/frame on a desktop AMD Ryzen CPU (LiteRT, 4 threads). **Caveat:** tiny, positive-only, weakly labelled (class from file name) — a functional check, not an accuracy benchmark; goggles/gloves/mask were not exercised. Raw results: [`docs/eval`](docs/eval). The Flutter app itself still uses the simulated detector until this model is wired behind `PpeDetector`.
+
 ## Research paper
 
 An IEEE-format manuscript draft (compliance model, architecture, verification) lives in [`docs/paper`](docs/paper): [English PDF](docs/paper/GearGuard-paper-en.pdf) · [PDF Bahasa Indonesia](docs/paper/GearGuard-paper-id.pdf) · [LaTeX source](docs/paper/main.tex). It is a draft: the detector benchmark and usability study still have to be run before it can be submitted anywhere. See [`docs/paper/README.md`](docs/paper/README.md).

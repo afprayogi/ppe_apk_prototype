@@ -1,0 +1,494 @@
+{
+  "summary": {
+    "model": "best.tflite",
+    "model_bytes": 6185225,
+    "input_shape": [
+      1,
+      640,
+      640,
+      3
+    ],
+    "output_shape": [
+      1,
+      10,
+      8400
+    ],
+    "conf_thr": 0.25,
+    "iou_thr": 0.45,
+    "images": 11,
+    "hit_resize": [
+      11,
+      11
+    ],
+    "hit_letterbox": [
+      11,
+      11
+    ],
+    "latency_ms_mean": 79.7,
+    "latency_ms_median": 79.5,
+    "latency_ms_p95": 82.1,
+    "machine": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD / Windows 10 / Python 3.11.9"
+  },
+  "rows": [
+    {
+      "image": "helm 2.jpeg",
+      "preprocess": "resize",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.919,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.919,
+          "box": [
+            184,
+            356,
+            692,
+            764
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm 3.jpeg",
+      "preprocess": "resize",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.901,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.901,
+          "box": [
+            339,
+            276,
+            856,
+            691
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm 4.jpeg",
+      "preprocess": "resize",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.859,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.859,
+          "box": [
+            371,
+            334,
+            851,
+            663
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm 5.jpeg",
+      "preprocess": "resize",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.887,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.887,
+          "box": [
+            348,
+            252,
+            860,
+            597
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm.jpeg",
+      "preprocess": "resize",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.904,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.904,
+          "box": [
+            372,
+            301,
+            849,
+            663
+          ]
+        }
+      ]
+    },
+    {
+      "image": "Sepatu Safety K3(1).jpeg",
+      "preprocess": "resize",
+      "expected": "safety_shoe",
+      "hit": true,
+      "best_expected_conf": 0.587,
+      "n_detections": 2,
+      "detections": [
+        {
+          "class": "safety_shoe",
+          "conf": 0.587,
+          "box": [
+            14,
+            303,
+            684,
+            987
+          ]
+        },
+        {
+          "class": "safety_shoe",
+          "conf": 0.409,
+          "box": [
+            321,
+            350,
+            656,
+            960
+          ]
+        }
+      ]
+    },
+    {
+      "image": "Sepatu Safety K3(2).jpeg",
+      "preprocess": "resize",
+      "expected": "safety_shoe",
+      "hit": true,
+      "best_expected_conf": 0.821,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "safety_shoe",
+          "conf": 0.821,
+          "box": [
+            65,
+            300,
+            581,
+            816
+          ]
+        }
+      ]
+    },
+    {
+      "image": "Sepatu Safety K3.jpeg",
+      "preprocess": "resize",
+      "expected": "safety_shoe",
+      "hit": true,
+      "best_expected_conf": 0.517,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "safety_shoe",
+          "conf": 0.517,
+          "box": [
+            146,
+            417,
+            608,
+            947
+          ]
+        }
+      ]
+    },
+    {
+      "image": "vest 2.jpeg",
+      "preprocess": "resize",
+      "expected": "Vest",
+      "hit": true,
+      "best_expected_conf": 0.817,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "Vest",
+          "conf": 0.817,
+          "box": [
+            112,
+            127,
+            589,
+            937
+          ]
+        }
+      ]
+    },
+    {
+      "image": "vest 3.jpeg",
+      "preprocess": "resize",
+      "expected": "Vest",
+      "hit": true,
+      "best_expected_conf": 0.728,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "Vest",
+          "conf": 0.728,
+          "box": [
+            45,
+            99,
+            558,
+            881
+          ]
+        }
+      ]
+    },
+    {
+      "image": "vest.jpeg",
+      "preprocess": "resize",
+      "expected": "Vest",
+      "hit": true,
+      "best_expected_conf": 0.822,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "Vest",
+          "conf": 0.822,
+          "box": [
+            32,
+            173,
+            718,
+            1184
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm 2.jpeg",
+      "preprocess": "letterbox",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.906,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.906,
+          "box": [
+            184,
+            373,
+            694,
+            715
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm 3.jpeg",
+      "preprocess": "letterbox",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.911,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.911,
+          "box": [
+            335,
+            279,
+            853,
+            654
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm 4.jpeg",
+      "preprocess": "letterbox",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.836,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.836,
+          "box": [
+            374,
+            336,
+            855,
+            663
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm 5.jpeg",
+      "preprocess": "letterbox",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.895,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.895,
+          "box": [
+            351,
+            258,
+            862,
+            574
+          ]
+        }
+      ]
+    },
+    {
+      "image": "helm.jpeg",
+      "preprocess": "letterbox",
+      "expected": "helmet",
+      "hit": true,
+      "best_expected_conf": 0.92,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "helmet",
+          "conf": 0.92,
+          "box": [
+            365,
+            305,
+            860,
+            647
+          ]
+        }
+      ]
+    },
+    {
+      "image": "Sepatu Safety K3(1).jpeg",
+      "preprocess": "letterbox",
+      "expected": "safety_shoe",
+      "hit": true,
+      "best_expected_conf": 0.812,
+      "n_detections": 2,
+      "detections": [
+        {
+          "class": "safety_shoe",
+          "conf": 0.812,
+          "box": [
+            320,
+            364,
+            656,
+            955
+          ]
+        },
+        {
+          "class": "safety_shoe",
+          "conf": 0.763,
+          "box": [
+            36,
+            384,
+            363,
+            963
+          ]
+        }
+      ]
+    },
+    {
+      "image": "Sepatu Safety K3(2).jpeg",
+      "preprocess": "letterbox",
+      "expected": "safety_shoe",
+      "hit": true,
+      "best_expected_conf": 0.918,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "safety_shoe",
+          "conf": 0.918,
+          "box": [
+            67,
+            301,
+            592,
+            796
+          ]
+        }
+      ]
+    },
+    {
+      "image": "Sepatu Safety K3.jpeg",
+      "preprocess": "letterbox",
+      "expected": "safety_shoe",
+      "hit": true,
+      "best_expected_conf": 0.735,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "safety_shoe",
+          "conf": 0.735,
+          "box": [
+            147,
+            425,
+            621,
+            931
+          ]
+        }
+      ]
+    },
+    {
+      "image": "vest 2.jpeg",
+      "preprocess": "letterbox",
+      "expected": "Vest",
+      "hit": true,
+      "best_expected_conf": 0.818,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "Vest",
+          "conf": 0.818,
+          "box": [
+            110,
+            148,
+            607,
+            860
+          ]
+        }
+      ]
+    },
+    {
+      "image": "vest 3.jpeg",
+      "preprocess": "letterbox",
+      "expected": "Vest",
+      "hit": true,
+      "best_expected_conf": 0.91,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "Vest",
+          "conf": 0.91,
+          "box": [
+            56,
+            113,
+            656,
+            887
+          ]
+        }
+      ]
+    },
+    {
+      "image": "vest.jpeg",
+      "preprocess": "letterbox",
+      "expected": "Vest",
+      "hit": true,
+      "best_expected_conf": 0.863,
+      "n_detections": 1,
+      "detections": [
+        {
+          "class": "Vest",
+          "conf": 0.863,
+          "box": [
+            68,
+            195,
+            691,
+            1180
+          ]
+        }
+      ]
+    }
+  ]
+}

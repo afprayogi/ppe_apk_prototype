@@ -112,3 +112,7 @@ app.*.map.json
 
 # Generated l10n files
 lib/l10n/gen/
+
+# Local evaluation scratch (model + photos come from the prototype repo)
+tool/eval_work/
+docs/eval/annotated_*.jpg
