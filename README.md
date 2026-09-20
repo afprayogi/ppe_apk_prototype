@@ -126,6 +126,15 @@ flutter test tool/screenshots_test.dart --update-goldens
 
 Unit tests cover the domain model (compliance maths, JSON round-trip), deterministic demo data and the detector. Widget tests drive the app end to end: onboarding, running a scan and saving a violation, adding an employee, and filtering the archive.
 
+## Research paper
+
+An IEEE-format manuscript draft (compliance model, architecture, verification) lives in [`docs/paper`](docs/paper). It is a draft: the detector benchmark and usability study still have to be run before it can be submitted anywhere. See [`docs/paper/README.md`](docs/paper/README.md).
+
+## Background
+
+GearGuard is a from-scratch redesign of the earlier
+[`ppe_apk_prototype`](https://github.com/afprayogi/ppe_apk_prototype), keeping the same product scope (scanner, employees, attendance, archive, PDF export, settings) with a new architecture, design system and brand.
+
 ## Roadmap
 
 - [ ] Real camera preview and on-device YOLO detector behind `PpeDetector`
