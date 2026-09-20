@@ -31,8 +31,8 @@ and plain orange/pink patches trigger a false *Vest*.
 
 | Item | Note |
 | --- | --- |
-| Affiliation and email | Red placeholders in the author block. |
-| AI-use disclosure | Author statement discloses generative-AI assistance; confirm wording against the venue's policy. |
+| Affiliation and email | Omitted on purpose (author line shows the GitHub handle). Add them to `build/paper_*.html` / `main.tex` if the venue requires. |
+| AI-use disclosure | The author statement discloses generative-AI assistance; keep it and check wording against the venue's policy. |
 | Venue fit | Check template, page limit, language, similarity limit and, for SINTA, the journal's *current* accreditation. |
 
 To turn this into a stronger submission: (1) run the SUS study with ≥10 supervisors/K3 staff,

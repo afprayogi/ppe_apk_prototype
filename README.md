@@ -116,7 +116,7 @@ flutter analyze
 flutter test
 ```
 
-Regenerate the README screenshots (renders the real screens with the SDK's Roboto and Material Icons fonts):
+Regenerate the README screenshots and the LinkedIn carousel (`python tool/make_carousel.py`) (renders the real screens with the SDK's Roboto and Material Icons fonts):
 
 ```sh
 flutter test tool/screenshots_test.dart --update-goldens
