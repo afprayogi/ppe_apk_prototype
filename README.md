@@ -124,7 +124,17 @@ flutter test tool/screenshots_test.dart --update-goldens
 
 ## Tests
 
-Unit tests cover the domain model (compliance maths, JSON round-trip), deterministic demo data and the detector. Widget tests drive the app end to end: onboarding, running a scan and saving a violation, adding an employee, and filtering the archive.
+```sh
+flutter test                      # 38 tests
+flutter test --coverage && python tool/eval/coverage_summary.py
+```
+
+| What | Result |
+| --- | --- |
+| Automated tests (unit, state, PDF, persistence, end-to-end widget) | **38 pass** |
+| Line coverage | **75.1 %** (domain 100 %, data 95 %, core 92 %, state 80 %, screens 67 %) |
+| Accessibility guidelines (tap target, labelled target, WCAG text contrast; 5 screens × light/dark) | **20 pass** — 3 failed at first (contrast as low as 2.13:1), fixed by darkening the light primary to `#A83600` |
+| `flutter analyze` | 0 errors, 0 warnings |
 
 ## Detector smoke test
 
@@ -137,7 +147,15 @@ The author's earlier YOLOv8/TFLite model ([release `model`](https://github.com/a
 | safety_shoe | 3 | 3/3 | 0.64 | 0.82 |
 | **All** | 11 | **11/11** | 0.80 | 0.87 |
 
-Mean latency 79.7 ms/frame on a desktop AMD Ryzen CPU (LiteRT, 4 threads). **Caveat:** tiny, positive-only, weakly labelled (class from file name) — a functional check, not an accuracy benchmark; goggles/gloves/mask were not exercised. Raw results: [`docs/eval`](docs/eval). The Flutter app itself still uses the simulated detector until this model is wired behind `PpeDetector`.
+Mean latency 79.7 ms/frame on a desktop AMD Ryzen CPU (LiteRT, 4 threads; 242.6 ms on 1 thread, 70.2 ms on 8). **Caveat:** tiny, positive-only, weakly labelled (class from file name) — a functional check, not an accuracy benchmark; goggles/gloves/mask were not exercised. More experiments (`tool/eval/experiments.py`, results in [`docs/eval`](docs/eval)):
+
+| Experiment | Finding |
+| --- | --- |
+| Threshold sweep | Letterbox keeps 11/11 up to τ = 0.7; the app's direct resize drops to 9/11 at τ = 0.6 → use letterbox |
+| Robustness (10 perturbations) | Insensitive to darkening, JPEG, ±15° rotation, noise, 4× down-scaling; **weak to occlusion (5/11 with a 25 % patch)** and heavy blur (8/11) |
+| Negative images (15) | 2 false positives, both *Vest* on plain orange/pink patches → colour bias toward hi-vis hues |
+
+Raw results: [`docs/eval`](docs/eval). The Flutter app itself still uses the simulated detector until this model is wired behind `PpeDetector`.
 
 ## Research paper
 

@@ -17,13 +17,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class _Detector implements PpeDetector {
   @override
   Future<Map<PpeItem, double>> detect() async => {
-        PpeItem.helmet: 0.94,
-        PpeItem.vest: 0.31,
-        PpeItem.gloves: 0.88,
-        PpeItem.boots: 0.91,
-        PpeItem.goggles: 0.9,
-        PpeItem.mask: 0.9,
-      };
+    PpeItem.helmet: 0.94,
+    PpeItem.vest: 0.31,
+    PpeItem.gloves: 0.88,
+    PpeItem.boots: 0.91,
+    PpeItem.goggles: 0.9,
+    PpeItem.mask: 0.9,
+  };
 }
 
 Future<void> _loadFonts() async {
@@ -62,6 +62,7 @@ void main() {
       t.view.reset();
       t.platformDispatcher.clearAllTestValues();
     });
+    // ignore: invalid_use_of_visible_for_testing_member
     SharedPreferences.setMockInitialValues({
       'settings.onboardingDone': onboarded,
     });
@@ -71,9 +72,9 @@ void main() {
   }
 
   Future<void> shot(WidgetTester t, String name) => expectLater(
-        find.byType(MaterialApp),
-        matchesGoldenFile('../docs/screenshots/$name.png'),
-      );
+    find.byType(MaterialApp),
+    matchesGoldenFile('../docs/screenshots/$name.png'),
+  );
 
   testWidgets('onboarding', (t) async {
     await boot(t, onboarded: false);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gearguard/core/theme/app_theme.dart';
 import 'package:gearguard/core/utils/formatters.dart';
 import 'package:gearguard/core/widgets/common.dart';
 import 'package:gearguard/core/widgets/safety_widgets.dart';
@@ -192,7 +193,11 @@ class _EmployeeTile extends StatelessWidget {
                 Text(
                   rate == null ? '–' : formatPercent(rate),
                   style: theme.textTheme.titleMedium?.copyWith(
-                    color: complianceColor(rate),
+                    color: readableColor(
+                      context,
+                      complianceColor(rate),
+                      tint: 0,
+                    ),
                   ),
                 ),
                 Text(

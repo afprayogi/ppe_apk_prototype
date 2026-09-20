@@ -1,30 +1,40 @@
-# Paper draft — Ahmad Fauzan Prayogi (sole author)
+# Paper — Ahmad Fauzan Prayogi (sole author)
 
 | File | What it is |
 | --- | --- |
-| [`GearGuard-paper-en.pdf`](GearGuard-paper-en.pdf) | English draft (3 pages, IEEE-style two column) |
-| [`GearGuard-paper-id.pdf`](GearGuard-paper-id.pdf) | Draf Bahasa Indonesia |
+| [`GearGuard-paper-en.pdf`](GearGuard-paper-en.pdf) | English paper (4 pages, IEEE-style two column) |
+| [`GearGuard-paper-id.pdf`](GearGuard-paper-id.pdf) | Versi Bahasa Indonesia |
 | `main.tex` + `refs.bib` | IEEEtran LaTeX source (`pdflatex → bibtex → pdflatex ×2`, or Overleaf) |
-| `build/*.html` | Source of the two PDFs above |
-| `study/` | SUS questionnaire (EN/ID), study protocol and `sus_score.py` for your real responses |
+| `build/*.html` | Source of the two PDFs |
+| `study/` | SUS questionnaire (EN/ID), protocol and `sus_score.py` for a real user study |
+| [`../eval`](../eval) | Raw results: `results.json`, `summary.md`, `experiments.json`, `experiments.md` |
+| [`../../tool/eval`](../../tool/eval) | Scripts that produced every number (`eval_yolo_tflite.py`, `experiments.py`, `coverage_summary.py`) |
 
-## What is filled in (real, checked)
+## What the paper contains (all measured, 2026-09-20)
 
-- Author name; single-author statement and generative-AI disclosure.
-- Compliance model, architecture, implementation numbers (32 files, ~4.9k lines, 7 tests, analyzer status) — all measured from this repo.
-- Facts about your earlier prototype, taken from its repository: YOLOv8-format model (TFLite file 6.2 MB), six classes, 640×640 input, confidence 0.25, NMS IoU 0.45, 11 validation photos.
-- **Related work with six references, all 2021 or newer** (5-year window), each checked against its publisher/repository page: Wang et al. 2021 (*Sensors*), Karlsson et al. 2022 (arXiv), YOLOv7 (CVPR 2023), Ultralytics YOLOv8 (2023), Ordrick et al. 2025 (*JISI*), Hyzy et al. 2022 (*JMIR mHealth*).
+1. Compliance model (Eqs. 1–3), layered architecture, `PpeDetector` interface.
+2. Detector smoke test: expected class found in **11/11** photos, ~80 ms/frame (desktop CPU).
+3. Threshold sweep, robustness to 10 perturbations, 15 negative images, latency vs threads.
+4. Software verification: **38 tests, 75.1 % line coverage**, 20 accessibility checks (three initially failed → fixed).
+5. Related work with **7 references, all 2021 or newer**.
 
-- **Preliminary detector smoke test (measured here, 2026-09-20):** the model detected the expected class in 11/11 validation photos, ~80 ms/frame on a desktop CPU. Script: `tool/eval/eval_yolo_tflite.py`; results: `docs/eval/`. Small, positive-only, weakly labelled — a functional check, not an accuracy estimate.
+Honest findings the paper reports rather than hides: recall drops to 5/11 with a 25 % occlusion patch,
+and plain orange/pink patches trigger a false *Vest*.
 
-## What is still open (marked in red in the PDFs)
+## What the paper does *not* claim
 
-| Item | Why it is not filled |
+- **No accuracy / mAP.** The 11 photos have weak (file-name) labels and no boxes, and may overlap the model's training data.
+- **No usability result.** No user study has been run; the paper says so (Section VI-G) and points to `study/`.
+- **No phone latency.**
+
+## Still yours to fill
+
+| Item | Note |
 | --- | --- |
-| Affiliation, email, funding | Only you know them. |
-| **Full detector benchmark** (precision / recall / mAP, phone latency) | Needs an independent labelled test set (with negative images) and a phone. The 11 photos only support the smoke test above. The Flutter app in this repo still ships a simulated detector. |
-| **Usability study (SUS, task times)** | Needs real participants. Use `study/sus_questionnaire.md` and `study/sus_score.py`. Inventing numbers is not an option for a paper. |
+| Affiliation and email | Red placeholders in the author block. |
+| AI-use disclosure | Author statement discloses generative-AI assistance; confirm wording against the venue's policy. |
+| Venue fit | Check template, page limit, language, similarity limit and, for SINTA, the journal's *current* accreditation. |
 
-Also confirm your target venue's page limit, template, language, similarity
-limit, AI-disclosure policy and — for SINTA — the journal's current
-accreditation on sinta.kemdiktisaintek.go.id.
+To turn this into a stronger submission: (1) run the SUS study with ≥10 supervisors/K3 staff,
+(2) evaluate the model on an independent labelled test set with negatives and report mAP,
+(3) measure latency on named phones. Each is a one-line swap in the tables — the scripts and protocol are ready.

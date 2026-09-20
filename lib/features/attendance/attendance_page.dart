@@ -210,7 +210,9 @@ class _Mini extends StatelessWidget {
         children: [
           Text(
             value,
-            style: theme.textTheme.titleLarge?.copyWith(color: color),
+            style: theme.textTheme.titleLarge?.copyWith(
+              color: readableColor(context, color),
+            ),
           ),
           Text(label, style: theme.textTheme.labelMedium),
         ],

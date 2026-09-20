@@ -26,7 +26,7 @@ abstract final class AppTheme {
           seedColor: AppColors.brand,
           brightness: brightness,
         ).copyWith(
-          primary: isDark ? const Color(0xFFFF8A3D) : const Color(0xFFE85D00),
+          primary: isDark ? const Color(0xFFFF8A3D) : const Color(0xFFA83600),
           onPrimary: isDark ? AppColors.ink : Colors.white,
           surface: isDark ? const Color(0xFF0B1120) : const Color(0xFFF6F7FB),
           surfaceContainerLowest: isDark
@@ -180,4 +180,38 @@ abstract final class AppTheme {
       ),
     );
   }
+}
+
+/// A version of [color] that stays readable (WCAG AA, 4.5:1 by default) as
+/// *text* on the current surface, optionally on a translucent [tint] of itself.
+///
+/// Status colours (green/amber/red) are fine for icons and bars, but too light
+/// to read as small text on a light theme, so text uses this adjusted shade.
+Color readableColor(
+  BuildContext context,
+  Color color, {
+  double tint = 0.15,
+  double minContrast = 4.5,
+}) {
+  final surface = Theme.of(context).colorScheme.surface;
+  final bg = Color.alphaBlend(color.withValues(alpha: tint), surface);
+  final darken = bg.computeLuminance() > 0.5;
+  var hsl = HSLColor.fromColor(color);
+  var out = color;
+  double ratio(Color a, Color b) {
+    final la = a.computeLuminance();
+    final lb = b.computeLuminance();
+    final hi = la > lb ? la : lb;
+    final lo = la > lb ? lb : la;
+    return (hi + 0.05) / (lo + 0.05);
+  }
+
+  var guard = 0;
+  while (ratio(out, bg) < minContrast && guard++ < 60) {
+    final next = hsl.lightness + (darken ? -0.02 : 0.02);
+    if (next < 0 || next > 1) break;
+    hsl = hsl.withLightness(next);
+    out = hsl.toColor();
+  }
+  return out;
 }

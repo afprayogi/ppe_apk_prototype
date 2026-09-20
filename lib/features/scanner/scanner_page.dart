@@ -663,7 +663,7 @@ class _ResultCard extends StatelessWidget {
                     Text(
                       ok ? 'All PPE detected' : 'PPE violation',
                       style: theme.textTheme.titleMedium?.copyWith(
-                        color: color,
+                        color: readableColor(context, color),
                       ),
                     ),
                     Text(
@@ -782,7 +782,9 @@ class _ChecklistRow extends StatelessWidget {
             child: Text(
               formatPercent(confidence),
               textAlign: TextAlign.right,
-              style: theme.textTheme.labelLarge?.copyWith(color: color),
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: readableColor(context, color, tint: 0),
+              ),
             ),
           ),
         ],

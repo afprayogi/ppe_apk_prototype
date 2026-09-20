@@ -1,0 +1,120 @@
+{
+  "E1_threshold_sweep_hits_of_11": {
+    "resize": {
+      "0.25": 11,
+      "0.4": 11,
+      "0.5": 11,
+      "0.6": 9,
+      "0.7": 9,
+      "0.8": 8,
+      "0.9": 3
+    },
+    "letterbox": {
+      "0.25": 11,
+      "0.4": 11,
+      "0.5": 11,
+      "0.6": 11,
+      "0.7": 11,
+      "0.8": 10,
+      "0.9": 5
+    }
+  },
+  "E2_perturbations": {
+    "original": {
+      "hits": 11,
+      "mean_conf": 0.866,
+      "wrong_class_boxes": 0
+    },
+    "dark x0.4": {
+      "hits": 11,
+      "mean_conf": 0.867,
+      "wrong_class_boxes": 0
+    },
+    "bright x1.8": {
+      "hits": 10,
+      "mean_conf": 0.771,
+      "wrong_class_boxes": 0
+    },
+    "blur r=3": {
+      "hits": 11,
+      "mean_conf": 0.848,
+      "wrong_class_boxes": 1
+    },
+    "blur r=8": {
+      "hits": 8,
+      "mean_conf": 0.591,
+      "wrong_class_boxes": 1
+    },
+    "JPEG q=20": {
+      "hits": 11,
+      "mean_conf": 0.874,
+      "wrong_class_boxes": 0
+    },
+    "noise sigma=0.08": {
+      "hits": 11,
+      "mean_conf": 0.88,
+      "wrong_class_boxes": 1
+    },
+    "rotate +15 deg": {
+      "hits": 11,
+      "mean_conf": 0.866,
+      "wrong_class_boxes": 0
+    },
+    "rotate -15 deg": {
+      "hits": 11,
+      "mean_conf": 0.851,
+      "wrong_class_boxes": 0
+    },
+    "occlusion 25%": {
+      "hits": 5,
+      "mean_conf": 0.305,
+      "wrong_class_boxes": 1
+    },
+    "downscale x0.25": {
+      "hits": 11,
+      "mean_conf": 0.87,
+      "wrong_class_boxes": 0
+    }
+  },
+  "E3_negatives": {
+    "n_images": 15,
+    "sources": [
+      "gradient",
+      "noise",
+      "sklearn",
+      "solid"
+    ],
+    "false_positives": {
+      "0.25": {
+        "images_with_detection": 2,
+        "boxes": 2
+      },
+      "0.5": {
+        "images_with_detection": 1,
+        "boxes": 1
+      },
+      "0.7": {
+        "images_with_detection": 1,
+        "boxes": 1
+      }
+    }
+  },
+  "E4_latency_by_threads": {
+    "1": {
+      "mean_ms": 242.6,
+      "p95_ms": 247.3
+    },
+    "2": {
+      "mean_ms": 137.5,
+      "p95_ms": 141.0
+    },
+    "4": {
+      "mean_ms": 87.0,
+      "p95_ms": 89.0
+    },
+    "8": {
+      "mean_ms": 70.2,
+      "p95_ms": 72.6
+    }
+  }
+}

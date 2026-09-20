@@ -173,9 +173,13 @@ class ScanDetailPage extends StatelessWidget {
                           '${formatPercent(record.scores[item] ?? 0)}  ·  '
                           '${record.isDetected(item) ? 'Detected' : 'Missing'}',
                           style: theme.textTheme.labelMedium?.copyWith(
-                            color: record.isDetected(item)
-                                ? AppColors.success
-                                : AppColors.danger,
+                            color: readableColor(
+                              context,
+                              record.isDetected(item)
+                                  ? AppColors.success
+                                  : AppColors.danger,
+                              tint: 0,
+                            ),
                           ),
                         ),
                       ],

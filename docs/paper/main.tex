@@ -42,11 +42,8 @@ per-worker compliance that is independent of any particular detector, (ii) a
 detector-agnostic architecture in which a single interface isolates the machine
 learning model from the user interface, storage and reporting layers, and
 (iii) an open-source reference implementation in Flutter with scan, attendance,
-ranking, archive and PDF-report features. The implementation is covered by unit
-and end-to-end widget tests. A preliminary smoke test of the author's YOLO model
-detected the expected equipment class in 11 of 11 validation photos (about
-80\,ms per frame on a desktop CPU); a full benchmark and a usability study
-remain future work.
+ranking, archive and PDF-report features.
+A smoke test of the author's YOLO model detected the expected equipment class in 11 of 11 validation photos (about 80\,ms per frame on a desktop CPU), while robustness and negative-image experiments expose weaknesses to occlusion (5/11 with a 25\% patch) and to high-visibility colours (false \emph{Vest} on plain orange). The suite has 38 automated tests (75\% line coverage, 20 accessibility checks). A usability study remains future work.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -182,10 +179,7 @@ files (about 4.9k lines) and Android, iOS, web, Windows and macOS runners.
 \subsection{Static Analysis and Tests}
 The project passes \texttt{flutter analyze} with no errors or warnings under
 the \texttt{very\_good\_analysis} rule set (two informational lints remain).
-The test suite has seven tests: three unit tests (compliance maths and JSON
-round-trip, deterministic seed data, detector output range) and four
-end-to-end widget tests (onboarding gate; running a scan and saving a
-violation; adding an employee; filtering the archive).
+The test suite has 38 automated tests, detailed in Section~VI-F.
 \subsection{Detector Used in the Current Build}
 \textbf{The current build uses a simulated detector} that draws item
 confidences at random after a short delay. It exists to exercise the complete
@@ -231,17 +225,107 @@ come from the prototype's own repository and may overlap its training data
 not an accuracy estimate. Script and raw results: \texttt{tool/eval},
 \texttt{docs/eval}.
 
-\subsection{Full Detector Benchmark}
-\todo{Independent labelled test set with negatives; precision, recall, mAP@0.5
-and mAP@0.5:0.95 per class; latency and memory on named phones.}
-\subsection{Usability Study}
-\todo{Recruit $n$ supervisors or representative users; use task-completion time
-and success rate for the core tasks (scan, find a violation, export a report),
-plus the System Usability Scale, interpreted against the benchmark mean of 68
-(SD 12.5)~\cite{hyzy2022sus}. Report mean, SD and the
-protocol; obtain ethics approval or an exemption statement.}
-\subsection{Ablation of the Workflow}
-\todo{Compare time-to-record with a paper checklist baseline.}
+\subsection{Threshold Sensitivity}
+Table~\ref{tab:tau} counts the photos (of 11) that still yield the expected class
+as $\tau$ rises. Letterbox keeps 11/11 up to $\tau=0.7$ and 10/11 at 0.8, whereas
+the app's direct resize drops to 9/11 at $\tau=0.6$; at $\tau=0.9$ recall
+collapses (5/11 and 3/11). Strict sites must weigh missed equipment against
+false alarms; the default 0.6 keeps 11/11 with letterbox.
+
+\begin{table}[t]
+\caption{Photos (of 11) with the expected class vs.\ $\tau$.}
+\label{tab:tau}
+\centering\footnotesize
+\begin{tabular}{l|ccccccc}
+\toprule
+$	au$ & 0.25 & 0.4 & 0.5 & 0.6 & 0.7 & 0.8 & 0.9 \
+\midrule
+resize & 11 & 11 & 11 & 9 & 9 & 8 & 3 \
+letterbox & 11 & 11 & 11 & 11 & 11 & 10 & 5 \
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Robustness to Perturbations}
+Each photo was perturbed (seeded; letterbox, $\tau=0.25$) and re-scored
+(Table~\ref{tab:pert}). The detector is insensitive to darkening, JPEG
+compression, $\pm15^\circ$ rotation, sensor noise and $4\times$ down-scaling
+(11/11). Strong over-exposure (10/11), heavy blur (8/11) and, above all, a random
+grey patch covering 25\% of the image (5/11, mean confidence 0.30) degrade it.
+Occlusion is the most relevant real-site failure and is not modelled by the
+single-frame rule of Section~III.
+
+\begin{table}[t]
+\caption{Effect of perturbations ($n=11$).}
+\label{tab:pert}
+\centering\footnotesize
+\begin{tabular}{lccc}
+\toprule
+Perturbation & Hits/11 & Mean conf. & Wrong-class boxes \
+\midrule
+original & 11 & 0.87 & 0 \
+dark x0.4 & 11 & 0.87 & 0 \
+bright x1.8 & 10 & 0.77 & 0 \
+blur r=3 & 11 & 0.85 & 1 \
+blur r=8 & 8 & 0.59 & 1 \
+JPEG q=20 & 11 & 0.87 & 0 \
+noise sigma=0.08 & 11 & 0.88 & 1 \
+rotate +15 deg & 11 & 0.87 & 0 \
+rotate -15 deg & 11 & 0.85 & 0 \
+occlusion 25\% & 5 & 0.30 & 1 \
+downscale x0.25 & 11 & 0.87 & 0 \
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Negative Images}
+On 15 non-PPE images (two natural photographs, six solid colours, six noise
+images, one gradient) the model produced 2 detections at $\tau=0.25$ and 1 at
+$\tau=0.5$ and 0.7. Both were \emph{Vest} on a plain colour patch: orange-red
+(RGB 212, 57, 14) at 0.81 and pink (240, 159, 174) at 0.39; the natural photographs
+produced none. This indicates a colour bias toward high-visibility hues that a
+threshold alone cannot remove; hard-negative data or colour augmentation is
+advisable. The set is small and synthetic and shows a failure mode, not a
+false-positive rate.
+
+\subsection{Latency}
+Latency falls with CPU threads (Table~\ref{tab:lat}), from 242.6\,ms on one
+thread to 70.2\,ms on eight (50 timed runs after 3 warm-ups, desktop CPU). Phone
+latency is unmeasured.
+
+\begin{table}[t]
+\caption{Inference latency vs.\ threads.}
+\label{tab:lat}
+\centering\footnotesize
+\begin{tabular}{lcc}
+\toprule
+Threads & Mean (ms) & p95 (ms)\
+\midrule
+1 & 242.6 & 247.3 \
+2 & 137.5 & 141.0 \
+4 & 87.0 & 89.0 \
+8 & 70.2 & 72.6 \
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Software Verification}
+The suite has 38 automated tests (unit, state, PDF generation, persistence and
+end-to-end widget tests) with \textbf{75.1\%} line coverage (1{,}532 of 2{,}040
+lines; domain 100\%, data 95\%, core 92\%, state 80\%, feature screens 67\%).
+Twenty accessibility checks (Flutter's tap-target, labelled-target and WCAG
+text-contrast guidelines on five screens $\times$ light/dark) pass. They
+initially \emph{failed} on three light-theme screens, with contrast as low as
+2.13:1 (orange text on tinted orange surfaces); darkening the light primary from
+\#E85D00 to \#A83600 (6.1:1) and deriving status-text shades algorithmically fixed
+all of them. A release web build has a 3.2\,MB main script.
+
+\subsection{Usability Study (Not Conducted)}
+No user study has been run, so no usability claim is made. A protocol, a bilingual
+System Usability Scale questionnaire and a scoring script are provided in
+\texttt{docs/paper/study}; results should be read against the benchmark mean of
+68 (SD 12.5)~\cite{hyzy2022sus}. Automated accessibility checks are not a
+substitute for testing with supervisors.
 
 \section{Discussion and Limitations}
 Compliance is decided per item from a single frame; occlusion, lighting and
@@ -249,7 +333,7 @@ multiple workers per frame are not modelled. Worker identity is chosen from a
 list rather than recognised automatically. Storage is local to the device.
 Camera-based monitoring of people raises privacy and labour-consent issues; a
 deployment must define retention and consent policies and should store scores
-rather than images. \todo{Discuss applicable regulation for the target country.}
+rather than images. In Indonesia, processing images of identifiable workers falls under the Personal Data Protection Law~\cite{uupdp2022}, which requires a lawful basis and purpose limitation.
 
 \section{Conclusion}
 We presented GearGuard, a detector-agnostic architecture and open-source

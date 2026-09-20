@@ -244,7 +244,7 @@ class ScanTile extends StatelessWidget {
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: record.compliant
                           ? scheme.onSurfaceVariant
-                          : AppColors.danger,
+                          : readableColor(context, AppColors.danger, tint: 0),
                     ),
                   ),
                   if (!record.compliant)

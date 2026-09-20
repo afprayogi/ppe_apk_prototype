@@ -52,7 +52,7 @@ class StatusPill extends StatelessWidget {
           Text(
             label,
             style: Theme.of(context).textTheme.labelMedium?.copyWith(
-              color: color,
+              color: readableColor(context, color),
               fontWeight: FontWeight.w800,
             ),
           ),
