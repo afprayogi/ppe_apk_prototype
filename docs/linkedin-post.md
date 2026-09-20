@@ -1,5 +1,7 @@
 # LinkedIn post drafts
 
+Tip: on LinkedIn, upload the PDF as a *document* (the + → Add a document) so it shows as a swipeable carousel in the post.
+
 Attach: `docs/screenshots/02-dashboard.png`, `04-scan-result.png`,
 `05-attendance.png`, `07-archive.png` (carousel), or a screen recording.
 
@@ -21,6 +23,8 @@ Di balik layar: arsitektur berlapis dengan flutter_bloc, dan satu interface `Ppe
 Catatan jujur: versi saat ini memakai detektor simulasi untuk demo alur. Integrasi model sungguhan dan uji pengguna adalah tahap berikutnya (sedang saya siapkan sebagai paper).
 
 Kode & dokumentasi: <link GitHub>
+📄 Draf paper (ID): docs/paper/GearGuard-paper-id.pdf
+📄 Paper draft (EN): docs/paper/GearGuard-paper-en.pdf
 
 #Flutter #Dart #K3 #KeselamatanKerja #MobileDevelopment #ComputerVision #Portfolio
 
@@ -41,5 +45,7 @@ Under the hood: layered architecture with flutter_bloc and a single `PpeDetector
 Honest note: the current build uses a simulated detector to demo the workflow. Real model integration and a usability study are next — I'm preparing them as a paper.
 
 Code: <GitHub link>
+📄 Paper draft (EN): docs/paper/GearGuard-paper-en.pdf
+📄 Draf paper (ID): docs/paper/GearGuard-paper-id.pdf
 
 #Flutter #Dart #OccupationalSafety #MobileDev #ComputerVision #Portfolio
